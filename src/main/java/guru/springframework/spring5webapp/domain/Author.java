@@ -3,6 +3,7 @@
  */
 package guru.springframework.spring5webapp.domain;
 
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -27,12 +28,10 @@ public class Author {
 	private long id;
 	private String firstName;
 	private String lastName;
-	
-	@ManyToMany
-	@JoinTable(name = "author_book", joinColumns = @JoinColumn(name = "book_id"), 
-		inverseJoinColumns = @JoinColumn(name = "author_id"))
-	private Set<Author> authos;
-	
+
+	@ManyToMany (mappedBy = "authors")
+	private Set<Book> books = new HashSet<Book>();
+		
 	public Author() {
 	}
 
@@ -49,8 +48,8 @@ public class Author {
 		return lastName;
 	}
 
-	public Set<Author> getAuthos() {
-		return authos;
+	public Set<Book> getBooks() {
+		return books;
 	}
 
 	public void setFirstName(String firstName) {
@@ -61,8 +60,8 @@ public class Author {
 		this.lastName = lastName;
 	}
 
-	public void setAuthos(Set<Author> authos) {
-		this.authos = authos;
+	public void setBooks(Set<Book> books) {
+		this.books = books;
 	}
 
 	@Override
@@ -84,7 +83,7 @@ public class Author {
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("Author [id=").append(id).append(", firstName=").append(firstName).append(", lastName=")
-				.append(lastName).append(", authos=").append(authos).append("]");
+				.append(lastName).append(", books=").append(books).append("]");
 		return builder.toString();
 	}
 	

@@ -3,6 +3,7 @@
  */
 package guru.springframework.spring5webapp.domain;
 
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -10,7 +11,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 /**
  * @author vijayakumar
@@ -26,8 +30,14 @@ public class Book {
 
 	private String title;
 	private String isbn;
-	@ManyToMany (mappedBy = "authors")
-	private Set<Book> books;
+	
+	@ManyToMany
+	@JoinTable(name = "author_book", joinColumns = @JoinColumn(name = "book_id"), 
+		inverseJoinColumns = @JoinColumn(name = "author_id"))
+	private Set<Author> authors = new HashSet<Author>();
+	
+	@ManyToOne
+	private Publisher publisher;
 	
 	public Book() {
 	}
@@ -53,8 +63,8 @@ public class Book {
 		return isbn;
 	}
 
-	public Set<Book> getBooks() {
-		return books;
+	public Set<Author> getAuthors() {
+		return authors;
 	}
 
 	public void setTitle(String title) {
@@ -65,8 +75,8 @@ public class Book {
 		this.isbn = isbn;
 	}
 
-	public void setBooks(Set<Book> books) {
-		this.books = books;
+	public void setAuthors(Set<Author> authors) {
+		this.authors = authors;
 	}
 
 	@Override
@@ -88,8 +98,16 @@ public class Book {
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("Book [id=").append(id).append(", title=").append(title).append(", isbn=").append(isbn)
-				.append(", books=").append(books).append("]");
+				.append(", authors=").append(authors).append("]");
 		return builder.toString();
+	}
+
+	public Publisher getPublisher() {
+		return publisher;
+	}
+
+	public void setPublisher(Publisher publisher) {
+		this.publisher = publisher;
 	}
 	
 }
