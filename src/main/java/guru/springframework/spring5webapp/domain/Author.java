@@ -11,8 +11,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
 /**
@@ -26,6 +24,7 @@ public class Author {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
+
 	private String firstName;
 	private String lastName;
 
@@ -83,8 +82,16 @@ public class Author {
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("Author [id=").append(id).append(", firstName=").append(firstName).append(", lastName=")
-				.append(lastName).append(", books=").append(books).append("]");
+				.append(lastName).append("]");
 		return builder.toString();
+	}
+	
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 	
 }

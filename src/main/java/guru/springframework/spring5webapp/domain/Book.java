@@ -98,7 +98,7 @@ public class Book {
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("Book [id=").append(id).append(", title=").append(title).append(", isbn=").append(isbn)
-				.append(", authors=").append(authors).append("]");
+				.append("]");
 		return builder.toString();
 	}
 
